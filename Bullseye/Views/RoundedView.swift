@@ -16,7 +16,7 @@ struct RoundedImageViewStorked: View {
             .frame(width: Constants.General.roundedViewLength, height: Constants.General.roundedViewLength)
             .overlay(
                 Circle().strokeBorder(Color("ButtonStrokeColor"),
-                                      lineWidth: Constants.General.roundRectCornerRadius)
+                lineWidth: Constants.General.strokeWidth)
             )
     }
 }
@@ -38,14 +38,14 @@ struct RoundedRectangleTextView: View {
         Text(text)
             .kerning(-0.2)
             .font(.title3)
-            .frame(width: Constants.General.roundViewRectWidth, height: Constants.General.roundViewRectHeight)
+            .frame(width: Constants.General.roundViewRectWidth, height:Constants.General.roundViewRectHeight)
             .foregroundColor(Color("TextColor"))
             .overlay(
                 RoundedRectangle(cornerRadius: Constants.General.roundRectCornerRadius)
-                    .stroke(lineWidth:Constants.General.roundRectCornerRadius)
+                    .stroke(lineWidth:Constants.General.strokeWidth)
             )
             .foregroundColor(Color("ButtonStrokeColor"))
-        
+            
     }
 }
 
@@ -53,9 +53,9 @@ struct RoundedRectangleTextView: View {
 struct RoundedImageViewStorked_Previews: PreviewProvider {
     static var previews: some View {
         VStack(spacing:10){
-            RoundedImageViewStorked(systemName: "arrow.counterclockwise")
-            RoundedImageViewFiled(systemName: "list.dash")
-            RoundedRectangleTextView(text: "100")
+        RoundedImageViewStorked(systemName: "arrow.counterclockwise")
+        RoundedImageViewFiled(systemName: "list.dash")
+        RoundedRectangleTextView(text: "100")
         }
     }
 }
