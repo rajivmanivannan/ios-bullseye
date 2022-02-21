@@ -8,21 +8,23 @@
 import SwiftUI
 
 struct ContentView: View {
-    
-    
     @State private var alertIsVisible = false
     @State private var sliderValue = 50.0
     @State private var game = Game()
-    
-    
     
     var body: some View {
         ZStack {
             BackgroundView(game: $game)
             VStack {
-                InstructionView (game: $game)
-                SliderView(sliderValue: $sliderValue)
-                HitMeButton(alertIsVisible: $alertIsVisible, sliderValue: $sliderValue, game: $game)
+                InstructionView (game: $game).padding(.bottom, alertIsVisible ? 0 : 100)
+                if alertIsVisible{
+                    PointsView(alertIsVisible:$alertIsVisible,sliderValue: $sliderValue, game: $game).transition(.scale)
+                }else {
+                    HitMeButton(alertIsVisible: $alertIsVisible, sliderValue: $sliderValue, game: $game).transition(.scale)
+                }
+            }
+            if !alertIsVisible{
+                SliderView(sliderValue: $sliderValue).transition(.scale)
             }
         }
     }
@@ -57,10 +59,12 @@ struct HitMeButton: View {
     @Binding var alertIsVisible: Bool
     @Binding var sliderValue: Double
     @Binding var game: Game
-
+    
     var body: some View {
         Button(action: {
+            withAnimation {
             alertIsVisible = true
+            }
         }){
             Text("Hit me").bold().font(.title3)
         }.padding(10.0)
@@ -71,16 +75,14 @@ struct HitMeButton: View {
             })
             .cornerRadius(10.0)
             .overlay(RoundedRectangle(cornerRadius: 10.0)
-                        .strokeBorder(Color.white,lineWidth: 2.0))
-            .alert(isPresented: $alertIsVisible, content: {
-                return Alert(title: Text("Hello"), message: Text("The slider value is\(game.points(sliderValue: Int(sliderValue)))"), dismissButton: .default(Text("awesome")))
-            })
+                        .strokeBorder(Color.white,lineWidth: Constants.General.roundRectCornerRadius))
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .previewInterfaceOrientation(.landscapeRight)
         ContentView().preferredColorScheme(.dark)
         ContentView().previewLayout(.fixed(width: 568, height: 320))
     }

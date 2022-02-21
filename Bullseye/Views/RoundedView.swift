@@ -13,10 +13,10 @@ struct RoundedImageViewStorked: View {
         Image(systemName:systemName)
             .font(.title)
             .foregroundColor(Color("TextColor"))
-            .frame(width: 56.0, height: 56.0)
+            .frame(width: Constants.General.roundedViewLength, height: Constants.General.roundedViewLength)
             .overlay(
                 Circle().strokeBorder(Color("ButtonStrokeColor"),
-                lineWidth: 2.0)
+                                      lineWidth: Constants.General.roundRectCornerRadius)
             )
     }
 }
@@ -27,7 +27,7 @@ struct RoundedImageViewFiled: View {
         Image(systemName:systemName)
             .font(.title)
             .foregroundColor(Color("ButtonFilledTextColor"))
-            .frame(width: 56.0, height: 56.0)
+            .frame(width: Constants.General.roundedViewLength, height: Constants.General.roundedViewLength)
             .background(Circle().fill(Color("ButtonFilledBackgroundColor")))
     }
 }
@@ -38,14 +38,14 @@ struct RoundedRectangleTextView: View {
         Text(text)
             .kerning(-0.2)
             .font(.title3)
-            .frame(width: 68.0, height: 56.0)
+            .frame(width: Constants.General.roundViewRectWidth, height: Constants.General.roundViewRectHeight)
             .foregroundColor(Color("TextColor"))
             .overlay(
-                RoundedRectangle(cornerRadius: 20.0)
-                    .stroke(lineWidth:2.0)
+                RoundedRectangle(cornerRadius: Constants.General.roundRectCornerRadius)
+                    .stroke(lineWidth:Constants.General.roundRectCornerRadius)
             )
             .foregroundColor(Color("ButtonStrokeColor"))
-            
+        
     }
 }
 
@@ -53,9 +53,9 @@ struct RoundedRectangleTextView: View {
 struct RoundedImageViewStorked_Previews: PreviewProvider {
     static var previews: some View {
         VStack(spacing:10){
-        RoundedImageViewStorked(systemName: "arrow.counterclockwise")
-        RoundedImageViewFiled(systemName: "list.dash")
-        RoundedRectangleTextView(text: "100")
+            RoundedImageViewStorked(systemName: "arrow.counterclockwise")
+            RoundedImageViewFiled(systemName: "list.dash")
+            RoundedRectangleTextView(text: "100")
         }
     }
 }
